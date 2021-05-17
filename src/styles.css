@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .sidenav {
   height: 100%;
   width: 160px;
@@ -25,10 +29,250 @@
     display: flex;
 }
 
+#left {
+    display: none;
+}
 
 #right {
     height: auto;
     width: 100%;
-    margin-left: 160px;
-    padding-left: 10px
+    //margin-left: 160px;
+    //padding-left: 10px;
+}
+
+table {
+    margin-left: 10px;
+}
+
+.table-wrapper {
+    margin-right: 15px;
+}
+
+.noUi-connect {
+    background: #1DB954 !IMPORTANT;
+}
+
+#sliders-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.slider-group {
+    display: none;
+    max-width: 750px; 
+    width: 100%;
+    margin: 3px;
+}
+
+.slider-wide {
+    min-width: 10.5em !IMPORTANT;
+}
+
+.slider-medium {
+    min-width: 7em !IMPORTANT;
+}
+
+.regex-group {
+    display: none;
+    max-width: 750px;
+    width: 100%;
+    margin: 3px;
+}
+
+.switch-group {
+    display: none;
+    max-width: 750px;
+    width: 100%;
+    margin: 3px;
+    height: 48px;
+    padding: 0 !IMPORTANT;
+}
+
+.slider-group > .slider-group-inline {
+    display: inline;
+    width: 100%;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.switch-group > .switch-group-inline {
+    display: inline;
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;   
+    max-width: 2em;
+}
+
+.my-slider {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.slider-group > .slider-group-label {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 3px;
+    margin-left: 10px;
+}
+
+.regex-group > .regex-group-label {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 3px;
+    margin-left: 10px;
+}
+
+.switch-group > .switch-group-label {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 3px;
+    margin-left: 10px;
+}
+
+.slider-group > input {
+    max-width: 5em;
+}
+
+#library-header {
+    display: flex;
+    justify-content: center;
+}
+
+#library-header > .form-check {
+    margin: 1em;
+}
+
+/*
+#library-header > .form-check {
+    margin: 1em 1em 1em 1em;
+    padding: 3px 3px 3px 27px;
+    border: 1px solid #1DB954;
+    border-radius: 5px;
+}*/
+
+.btn {
+    background: #1DB954 !IMPORTANT;
+    color: white;
+    margin: 20px;
+}
+
+.btnRed {
+    background: #b11a1a !IMPORTANT;
+    color: white;
+    margin: 20px;
+}
+
+a {
+    margin: 0px;
+    padding: 0px;
+}
+
+#library-include {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#library-include > .form-check {
+    width: 10em;
+    margin: .5em;
+    display: none;
+}
+
+#library-include > .form-check > label {
+    margin-left: 3px;
+}
+
+.library-header {
+    display: none;
+    margin-top: 1em;
+}
+
+#sort-songs > div {
+    max-width: 250px;
+    display: flex;
+    margin-top: 1em;
+}
+
+#sort-songs {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#sort-songs > div > h6 {
+    margin-top: auto;
+    margin-right: 8px;
+    margin-left: 2em;
+}
+
+#sort-albums > div {
+    max-width: 250px;
+    display: flex;
+    margin-top: 1em;
+}
+
+#sort-albums {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#sort-albums > div > h6 {
+    margin-top: auto;
+    margin-right: 8px;
+    margin-left: 2em;
+}
+
+#sort-playlists > div {
+    max-width: 250px;
+    display: flex;
+    margin-top: 1em;
+}
+
+#sort-playlists {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#sort-playlists > div > h6 {
+    margin-top: auto;
+    margin-right: 8px;
+    margin-left: 2em;
+}
+
+.form-select {
+    margin-left: 3px;
+}
+
+.flex-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.queueHeader {
+    display: flex;
+    list-style: none;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.mL2 {
+    margin-left: .2em;
+}
+.mL {
+    margin-left: 1em;
+}
+
+.mR2 {
+    margin-right: .2em;
 }

@@ -1,0 +1,104 @@
+<div class="footer">
+    <script src="scripts.js?newversion"></script>
+    <span class="buttons">
+        <a href="#" class="previous-round" onclick="previousSong();">&#8249;</a>
+        <button type="button" class="playButton" onclick="resumeSong();"></button>
+        <button type="button" class="pauseButton" onclick="pauseSong();"></button>
+        <a href="#" class="next-round" onclick="nextSong();">&#8250;</a>
+        <p class="currentSongClass" id="currentSong" style="display:inline"></p>
+    </span>
+    <span class="volume" id="volume_id">
+        <input class="slider" type="range" min="0" max="100" value="50" id="volume">
+        <p style="display:inline; color: #4b4b4b;">Volume</p>
+    </span>    
+</div>
+
+<style>
+    .footer {
+        display: inline;
+        padding: 5px 5px 5px 5px;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 70px;
+        text-align: center;
+        background: #1DB954 !IMPORTANT;
+        color: white;
+        border-top-style: solid;
+        border-color: #202020;
+        border-width: 2px;
+    }
+
+    }
+    .volume {
+        /*margin-left: 250px;*/
+        transform: translate(50px, -20px);
+        text-align: right;
+
+    }
+    .next-round {
+        background-color: #04AA6D;
+        color: white;
+        border-radius: 50%;
+        transform: translate(20px, 0px);
+    }
+    .previous-round {
+        background-color: #04AA6D;
+        color: black;
+        border-radius: 50%;
+        transform: translate(-20px, 0px);
+    }
+
+    a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    }
+
+    a:hover {
+    background-color: #ddd;
+    color: black;
+    }
+    .playButton {
+
+        width: 20px;
+        height: 20px;
+        border-style: solid;
+        border-width: 10px;
+        border-color: #202020;
+        border-width: 10px 10px 10px 10px;
+        border-color: red blue green yellow;
+        border-width: 10px 0px 10px 20px;
+        border-color: red blue green yellow;
+        box-sizing: border-box;
+        width: 20px;
+        height: 20px;
+        border-width: 10px 0px 10px 20px;
+        border-color: transparent transparent transparent #202020;
+        background: #1DB954 !IMPORTANT;
+        transform: translate(-1px, -5px);
+    }
+    .pauseButton {
+        width: 20px;
+        height: 20px;
+        border-style: solid;
+        border-width: 10px;
+        border-color: #202020;
+        border-style: double;
+        border-width: 0px 10px 0px 10px;
+        border-width: 0px 0px 0px 10px;
+        border-color: #202020;
+        background: #1DB954 !IMPORTANT;
+        transform: translate(0px, 1px);
+    }
+    .currentSongClass {
+        color:rgb(49, 48, 48);
+        margin-left: 150px;
+        margin-right: 150px;
+        font-weight: bold;
+        font-size: 150%;
+        font-family: Proxima Nova;
+    }
+    
+</style>
