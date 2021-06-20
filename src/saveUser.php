@@ -1,6 +1,6 @@
 <?php
 
-echo "Test";
+var_dump("Test");
 
 $link = mysqli_connect('sbwmf.cfn7ax1bfjco.us-east-2.rds.amazonaws.com
 ', 'admin', '0TZ9yw$IJ^5s');
