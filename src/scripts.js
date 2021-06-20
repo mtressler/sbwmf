@@ -3,7 +3,7 @@ $(document).ready(function() {
         updateToken();
     }
     
-    startOperation();
+    //startOperation();
 })
 
 
@@ -27,7 +27,7 @@ function updateToken() {
 
 function startOperation() {
     var update;
-    update = setInterval(updateCurrentSong, 1000);
+    update = setInterval(updateCurrentSong, 2000);
 }
 
 var lastPlayedSong;
