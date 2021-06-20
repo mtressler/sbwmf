@@ -93,10 +93,10 @@ function newReleases() {
 
 function saveProfile() {
     saveUser();
-    loadUserAlbums();
-    saveAlbums();
-    saveSongs();
-    savePlaylists();
+    //loadUserAlbums();
+    //saveAlbums();
+    //saveSongs();
+    //savePlaylists();
 }
 
 function saveUser() {
