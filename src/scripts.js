@@ -119,7 +119,7 @@ function saveUser() {
                 console.log(result); 
                 console.log("SUCCESS");
             },
-            error: function (err) {console.log("ERROR");}
+            error: function (err) {console.log(err);}
         });
     }).catch((err) => {
         document.getElementById("userInfo").innerHTML = err;
