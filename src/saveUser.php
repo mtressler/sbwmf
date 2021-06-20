@@ -2,7 +2,7 @@
 
 var_dump("Test");
 
-$link = mysqli_connect('sbwmf.cfn7ax1bfjco.us-east-2.rds.amazonaws.com
+$link = mysqli_connect('sbwmf.cfn7ax1bfjco.us-east-2.rds.amazonaws.com:3306
 ', 'admin', '0TZ9yw$IJ^5s');
 if (!$link) {
     die("Connection failed: " . mysqli_connect_error());
