@@ -113,7 +113,7 @@ function saveUser() {
         console.log(JSON.stringify(user));
         $.ajax({
             type: 'POST',
-            url: 'src/saveUser.php',
+            url: 'saveUser.php',
             data: {'data': JSON.stringify(user)},
             success: function (result) {
                 console.log(result); 
