@@ -42,7 +42,6 @@ function displayQueue(queue_id) {
             document.getElementById("queueResult").innerHTML = newRes[1];
 
             if (role == '\'owner\'') {
-                addHiddenSongs(queue_id);
                 $(`#deleteQueue`).html(`<button class="btnRed btn" type="button" onclick="deleteQueue(${queue_id})">Delete Queue</button>`);
             }
             else {
@@ -267,11 +266,13 @@ function removeFromQueue(uri, queueId) {
         url: 'removeFromQueue.php',
         data: { 'data': JSON.stringify(obj) },
         success: function (result) {
+            displayQueue(queueId);
         },
-        error: function (err) { console.log("ERROR"); }
+        error: function (err) {
+            displayQueue(queueId);
+            console.log("ERROR");
+        }
     });
-
-    displayQueue(queueId);
 }
 
 function getUserList(queueId, userId) {
