@@ -230,7 +230,7 @@ function addToSpotify(uri, queueId) {
     });
 
 
-    var endpoint = 'https://api.spotify.com/v1/me/player/queue?uri=' + uri;
+    var endpoint = 'https://api.spotify.com/v1/playlists/5P6FpFhMy7gFvYwaX1ABCj/tracks?uris=' + uri;
 
     if (role == 'owner') {
 
