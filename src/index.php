@@ -57,9 +57,6 @@
             </div>
         </div>
 
-        <div id="footer-placeholder"></div>
-        <script>$(function(){$("#footer-placeholder").load("footer.html");});</script>
-
         <script src="nouislider.min.js"></script>
         <script src="scripts.js?newversion"></script>
         <script>

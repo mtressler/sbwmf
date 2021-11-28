@@ -16,15 +16,6 @@
     </head>
     <body>
         <div id="page">
-            <div id="left">
-                <!-- sidebar -->
-                <div class="sidenav">
-                    <a href="#link">Friend1</a>
-                    <a href="#link">Friend2</a>
-                    <a href="#link">Friend3</a>
-                </div>
-            </div>
-
             <div id="right">
                 <!-- navbar -->
                 <div id="navbar-placeholder"></div>

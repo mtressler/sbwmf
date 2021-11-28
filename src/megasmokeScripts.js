@@ -1,5 +1,5 @@
 // globals
-var qid;
+var qid = 15;
 var uid;
 
 $(document).ready(function () {
@@ -17,6 +17,7 @@ function displayQueue(queue_id) {
             <div class="form-group" style="margin: 20px 20px 0px 20px;"><input type="text" id="searchSongName" class="form-control" placeholder="Search for a song to add"></div>
             </div>
             <button type="submit" class="btn" onclick="searchForSong()">Search</button>
+            <button class="btn" onclick="window.location.href='https://open.spotify.com/playlist/5P6FpFhMy7gFvYwaX1ABCj?si=70eed6d85ffb45f3';">View Playlist</button>
         </form>
     `;
 
