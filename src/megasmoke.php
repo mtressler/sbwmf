@@ -30,24 +30,6 @@
                 <div id="navbar-placeholder"></div>
                 <script>$(function(){$("#navbar-placeholder").load("navbar.html");});</script>
 
-                <div id="queue">
-                    <div>
-                        <ul class="queueHeader"> 
-                            <li id="manageUsers">
-                                
-                            </li>
-                            <li id="refreshQueue">
-
-                            </li>
-                            <li id="deleteQueue">
-                                
-                            </li>
-
-                        </ul>
-                        
-                    </div>
-                </div>
-
                 <div id="songQueueSearch"></div>
                 <div id="songQueueResults"></div>
 
