@@ -1,8 +1,8 @@
-$(document).ready(function() {
+$(document).ready(function () {
     if (!localStorage['token']) {
         updateToken();
     }
-    
+
     //startOperation();
 })
 
@@ -15,7 +15,7 @@ function updateToken() {
     if (s == -1)
         return;
     let e = url.search('&');
-    var token = url.substring(s+13, e)
+    var token = url.substring(s + 13, e)
     console.log(token);
     var d = new Date();
     var tokExpiry = {
@@ -33,7 +33,7 @@ function startOperation() {
 var lastPlayedSong;
 
 function updateCurrentSong() {
-    api_call('https://api.spotify.com/v1/me/player/currently-playing').then( (res) => {
+    api_call('https://api.spotify.com/v1/me/player/currently-playing').then((res) => {
         if (res['item']['name']) {
             document.getElementById("currentSong").innerHTML = res['item']['name'];
             lastPlayedSong = res['item']['name'];
@@ -47,9 +47,9 @@ function updateCurrentSong() {
 }
 
 function testUserInfo() {
-    api_call('https://api.spotify.com/v1/me').then( (res) => {
+    api_call('https://api.spotify.com/v1/me').then((res) => {
         var name = JSON.stringify(res['display_name']);
-        name = name.substring(1, name.length-1);
+        name = name.substring(1, name.length - 1);
         document.getElementById("userInfo").innerHTML = "Welcome " + name + "!";
     }).catch((err) => {
         document.getElementById("userInfo").innerHTML = err;
@@ -57,7 +57,7 @@ function testUserInfo() {
 }
 
 function newReleases() {
-    api_call('https://api.spotify.com/v1/browse/new-releases').then( (res) => {
+    api_call('https://api.spotify.com/v1/browse/new-releases').then((res) => {
         var obj = res['albums']['items'];
         var album = `
         <table class="table table-hover" ><thead><tr>
@@ -71,20 +71,20 @@ function newReleases() {
             album += "<tr>";
 
             var name = JSON.stringify(obj[i]['name']);
-            name = name.substring(1, name.length-1);
+            name = name.substring(1, name.length - 1);
             album += `<td class="align-middle">` + name + `</td>`;
-            
+
             var artist = JSON.stringify(obj[i]['artists'][0]['name']);
-            var artist = artist.substring(1, artist.length-1);
+            var artist = artist.substring(1, artist.length - 1);
             album += `<td class="align-middle">` + artist + `</td>`;
 
             album += "<td class=\"align-middle\"><img src=\"" + obj[i]['images'][0]['url'] + "\" width=\'70\' height=\'70\'>" + `</td>`;
             album += "</tr>";
         }
         document.getElementById("newReleases").innerHTML = album;
-        
+
     }).catch((err) => {
-        document.getElementById("newReleases").innerHTML =  JSON.stringify(err);
+        document.getElementById("newReleases").innerHTML = JSON.stringify(err);
     });
 }
 /*
@@ -104,9 +104,9 @@ function saveUser() {
         'User_id': '',
         'user_uri': ''
     }
-    api_call('https://api.spotify.com/v1/me').then( (res) => {
+    api_call('https://api.spotify.com/v1/me').then((res) => {
         var name = JSON.stringify(res['display_name']);
-        name = name.substring(1, name.length-1);
+        name = name.substring(1, name.length - 1);
         document.getElementById("userInfo").innerHTML = "Welcome " + name + "!";
         user['User_id'] = name;
         user['user_uri'] = res['uri'];
@@ -114,12 +114,12 @@ function saveUser() {
         $.ajax({
             type: 'POST',
             url: 'saveUser.php',
-            data: {'data': JSON.stringify(user)},
+            data: { 'data': JSON.stringify(user) },
             success: function (result) {
-                console.log(result); 
+                console.log(result);
                 console.log("SUCCESS");
             },
-            error: function (err) {console.log(err);}
+            error: function (err) { console.log(err); }
         });
     }).catch((err) => {
         document.getElementById("userInfo").innerHTML = err;
@@ -129,9 +129,9 @@ function saveUser() {
 
 function loadUserAlbums() {
     function appendAlbum(v) {
-        
+
     }
-    api_call('https://api.spotify.com/v1/me/albums').then( (res) => {
+    api_call('https://api.spotify.com/v1/me/albums').then((res) => {
         res['items'].forEach(appendAlbum);
         document.getElementById("albums").innerHTML = JSON.stringify(res);
     }).catch((err) => {
@@ -141,7 +141,7 @@ function loadUserAlbums() {
 
 function saveSeveralSongs(uris, n, p, t, a) {
     var endpoint = 'https://api.spotify.com/v1/audio-features?ids=' + uris;
-    api_call(endpoint).then( (res) => {
+    api_call(endpoint).then((res) => {
         var ob = res;
         var i;
         for (i = 0; i < ob['audio_features'].length; i++) {
@@ -154,25 +154,25 @@ function saveSeveralSongs(uris, n, p, t, a) {
         $.ajax({
             type: 'POST',
             url: 'saveSongs.php',
-            data: {'data': JSON.stringify(ob)},
+            data: { 'data': JSON.stringify(ob) },
             success: function (result) {
                 //console.log(result); 
                 //console.log("SUCCESS");
             },
-            error: function (err) {console.log("ERROR");}
+            error: function (err) { console.log("ERROR"); }
         });
     }).catch((err) => {
         document.getElementById("songs").innerHTML = err;
     });
 }
 
-function saveSongs(offset=0, limit=50) {
+function saveSongs(offset = 0, limit = 50) {
     var endpoint = 'https://api.spotify.com/v1/me/tracks?offset=' + offset + '&limit=' + limit;
-    api_call(endpoint).then( (res) => {
+    api_call(endpoint).then((res) => {
         //console.log(JSON.stringify(res));
         //console.log(res);
         if (res['items'].length == 50)
-            saveSongs(offset=offset+50);
+            saveSongs(offset = offset + 50);
         var ids = "";
         var names = "";
         var popularity = "";
@@ -195,7 +195,7 @@ function saveSongs(offset=0, limit=50) {
             artists += "&%&";
         })
         saveSeveralSongs(ids, names, popularity, track_num, artists);
-        
+
     }).catch((err) => {
         document.getElementById("songs").innerHTML = err;
     });
@@ -204,7 +204,7 @@ function saveSongs(offset=0, limit=50) {
 function getMultipleTracks(uris) {
     var endpoint = 'https://api.spotify.com/v1/tracks?ids=' + uris;
     //console.log(`uris`, uris);
-    api_call(endpoint).then( (res) => {
+    api_call(endpoint).then((res) => {
         //console.log(JSON.stringify(res));
         var ids = "";
         var names = "";
@@ -228,11 +228,11 @@ function getMultipleTracks(uris) {
             artists += "&%&";
         })
         saveSeveralSongs(ids, names, popularity, track_num, artists);
-        
+
     }).catch((err) => {
         document.getElementById("songs").innerHTML = err;
         console.log(`uris`, uris);
-        
+
     });
 }
 
@@ -254,15 +254,15 @@ function saveAlbumSongs(id, offset=0, limit=50) {
     });
 }
 */
-function saveAlbums(offset=0, limit=50) {
+function saveAlbums(offset = 0, limit = 50) {
     var endpoint = 'https://api.spotify.com/v1/me/albums?offset=' + offset + '&limit=' + limit;
-    api_call(endpoint).then( (res) => {
+    api_call(endpoint).then((res) => {
         //console.log(res);
         // check when num albums is exactly 50
         $.ajax({
             type: 'POST',
             url: 'saveAlbums.php',
-            data: {'data': JSON.stringify(res)},
+            data: { 'data': JSON.stringify(res) },
             success: function (result) {
                 //console.log("SUCCESS");
                 var r = result.split('&')[0];
@@ -271,21 +271,21 @@ function saveAlbums(offset=0, limit=50) {
                     //console.log(`in success album`, result.split('&')[i]);
                 }
                 //console.log(r);
-                if(r == 50)
-                    saveAlbums(offset=offset+50)
+                if (r == 50)
+                    saveAlbums(offset = offset + 50)
             },
-            error: function (err) {console.log("ERROR");console.log(err)}
+            error: function (err) { console.log("ERROR"); console.log(err) }
         });
 
         //console.log(`after ajax res`, res);
 
         var count = 0;
-        res['items'].forEach(el => { 
-            
+        res['items'].forEach(el => {
+
             var ids = [];
-            
-            el["album"]["tracks"]["items"].forEach(tr => { 
-            
+
+            el["album"]["tracks"]["items"].forEach(tr => {
+
                 if (ids.push(tr['uri'].split(':')[2]) == 50) {
                     var idStr = "";
 
@@ -322,14 +322,14 @@ function saveAlbums(offset=0, limit=50) {
     });
 }
 
-function savePlaylists(offset=0, limit=50) {
+function savePlaylists(offset = 0, limit = 50) {
     var endpoint = 'https://api.spotify.com/v1/me/playlists?offset=' + offset + '&limit=' + limit;
-    api_call(endpoint).then( (res) => {
+    api_call(endpoint).then((res) => {
         //console.log(res);
         $.ajax({
             type: 'POST',
             url: 'savePlaylists.php',
-            data: {'data': JSON.stringify(res)},
+            data: { 'data': JSON.stringify(res) },
             success: function (result) {
                 //console.log(result);
                 // 'result' is the php response
@@ -339,33 +339,33 @@ function savePlaylists(offset=0, limit=50) {
                     console.log(`in success album`, result.split('&')[i]);
                 }*/
             },
-            error: function (err) {console.log("ERROR");console.log(err)}
+            error: function (err) { console.log("ERROR"); console.log(err) }
         });
 
         var count = 1;
 
         res['items'].forEach(el => {
-            setTimeout(() => {savePlaylistTracks(el["id"])}, 300*count);
+            setTimeout(() => { savePlaylistTracks(el["id"]) }, 300 * count);
             count += Math.ceil(el['tracks']['total'] / 100.);
             //console.log(count);
         })
 
-        if(res['total'] > 50 && offset < res['total'])
-            setTimeout(() => {console.log("RECURSING");savePlaylists(offset=offset+50)}, 300*count);
+        if (res['total'] > 50 && offset < res['total'])
+            setTimeout(() => { console.log("RECURSING"); savePlaylists(offset = offset + 50) }, 300 * count);
         else
             console.log("DONE LOADING PLAYLISTS");
     });
 
-    
+
 }
 
-function savePlaylistTracks(id, offset=0, limit=100) {
+function savePlaylistTracks(id, offset = 0, limit = 100) {
     var endpoint = 'https://api.spotify.com/v1/playlists/' + id + '/tracks?offset=' + offset + '&limit=' + limit;
     //console.log("Saving playlist: " + id);
-    api_call(endpoint).then( (res) => {
+    api_call(endpoint).then((res) => {
         //console.log(res);
         if (res["items"].length == 100) {
-            savePlaylistTracks(id, offset+100);
+            savePlaylistTracks(id, offset + 100);
         }
 
         var ids = "";
@@ -416,7 +416,7 @@ function resumeSong() {
 
     var device_id;
 
-    api_call('https://api.spotify.com/v1/me/player/devices').then( (res) => {
+    api_call('https://api.spotify.com/v1/me/player/devices').then((res) => {
         var obj = res['devices'];
         if (obj.length == 0) {
             console.log("no devices available");
@@ -443,9 +443,9 @@ function resumeSong() {
                 'Authorization': 'Bearer ' + JSON.parse(localStorage['token']).tok,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }, 
-            json: {"data": JSON.stringify(body)},
-            success: function(response) {
+            },
+            json: { "data": JSON.stringify(body) },
+            success: function (response) {
                 console.log(JSON.stringify(response));
             }
         })
@@ -458,14 +458,14 @@ function resumeSong() {
 
 function pauseSong() {
     console.log("pauses");
-    
+
     $.ajax({
         type: "PUT",
         url: "https://api.spotify.com/v1/me/player/pause",
         headers: {
             'Authorization': 'Bearer ' + JSON.parse(localStorage['token']).tok
-        }, 
-        success: function(response) {
+        },
+        success: function (response) {
             console.log(response);
         }
     })
@@ -477,8 +477,8 @@ function nextSong() {
         url: "https://api.spotify.com/v1/me/player/next",
         headers: {
             'Authorization': 'Bearer ' + JSON.parse(localStorage['token']).tok
-        }, 
-        success: function(response) {
+        },
+        success: function (response) {
             console.log(response);
         }
     })
@@ -490,19 +490,19 @@ function previousSong() {
         url: "https://api.spotify.com/v1/me/player/previous",
         headers: {
             'Authorization': 'Bearer ' + JSON.parse(localStorage['token']).tok
-        }, 
-        success: function(response) {
+        },
+        success: function (response) {
             console.log(response);
         }
     })
 }
 
-var slider = document.getElementById("volume");
+/* var slider = document.getElementById("volume");
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
   changeVolume(this.value);
-}
+} */
 
 function changeVolume(volume) {
     $.ajax({
@@ -510,14 +510,14 @@ function changeVolume(volume) {
         url: "https://api.spotify.com/v1/me/player/volume?volume_percent=" + volume,
         headers: {
             'Authorization': 'Bearer ' + JSON.parse(localStorage['token']).tok
-        }, 
-        success: function(response) {
+        },
+        success: function (response) {
             console.log(response);
         }
     })
 }
 
-function api_call(url, type="GET") {
+function api_call(url, type = "GET") {
     if (!localStorage['token']) {
         return Promise.reject("Not logged in.");
     } else {
@@ -535,8 +535,8 @@ function api_call(url, type="GET") {
         url: url,
         headers: {
             'Authorization': 'Bearer ' + JSON.parse(localStorage['token']).tok
-        }, 
-        success: function(response) {
+        },
+        success: function (response) {
             return response;
         }
     })

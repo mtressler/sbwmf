@@ -240,6 +240,8 @@ function addToSpotify(uri, queueId) {
 
     var endpoint = 'https://api.spotify.com/v1/playlists/5P6FpFhMy7gFvYwaX1ABCj/tracks?uris=' + uri;
 
+    console.log(endpoint);
+
     if (role == 'owner') {
 
         api_call(endpoint, type = "POST").then((res) => {
