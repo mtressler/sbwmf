@@ -219,6 +219,8 @@ function addToSpotify(uri, queueId) {
     accessObj['queueId'] = queueId;
     var role;
 
+    console.log(accessObj);
+
     $.ajax({
         type: 'POST',
         url: 'getRole.php',
