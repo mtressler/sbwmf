@@ -87,6 +87,7 @@ function searchForSong() {
 }
 
 function api_call(url, type = "GET") {
+    console.log(url);
     if (!localStorage['token']) {
         return Promise.reject("Not logged in.");
     } else {
