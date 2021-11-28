@@ -229,12 +229,13 @@ function addToSpotify(uri, queueId) {
         url: 'getRole.php',
         data: { 'data': JSON.stringify(accessObj) },
         success: function (result) {
+            console.log(result);
             role = result;
         },
         error: function (err) { console.log("ERROR"); }
     });
 
-    console.log(role);
+    console.log(uri);
 
 
     var endpoint = 'https://api.spotify.com/v1/playlists/5P6FpFhMy7gFvYwaX1ABCj/tracks?uris=' + uri;

@@ -58,7 +58,7 @@
         </div>
 
         <script src="nouislider.min.js"></script>
-        <script src="scripts.js?newversion"></script>
+        <script src="scripts.js"></script>
         <script>
             newReleases();
         </script>
