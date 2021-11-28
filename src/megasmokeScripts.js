@@ -6,6 +6,9 @@ $(document).ready(function () {
     displayQueue(15);
     api_call('https://api.spotify.com/v1/me').then((res) => {
         uid = res['id'];
+        document.getElementById("login").innerHTML = "Logged In";
+    }).catch((err) => {
+        document.getElementById("login").innerHTML = err;
     });
 })
 
