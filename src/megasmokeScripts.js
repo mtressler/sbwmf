@@ -245,6 +245,8 @@ function addToSpotify(uri, queueId) {
 
     if (role == 'owner') {
 
+        console.log("owner part");
+
         api_call(endpoint, type = "POST").then((res) => {
             console.log(res);
 
@@ -253,6 +255,8 @@ function addToSpotify(uri, queueId) {
         });
     }
     else {
+
+        console.log("non owner part");
 
         accessObj['uri'] = endpoint;
         $.ajax({
