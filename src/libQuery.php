@@ -1,6 +1,7 @@
 <?php
-    $link = mysqli_connect('localhost', 'jstrong5', '@Rtkuedx01') or die ('Could not connect');
-    mysqli_select_db($link, 'jstrong5');
+    $link = mysqli_connect('sbwmf.cfn7ax1bfjco.us-east-2.rds.amazonaws.com
+    ', 'admin', '0TZ9yw$IJ^5s') or die('Dead');
+    mysqli_select_db($link, 'sbwmf');
     $query = $_POST['query'];
     $results = mysqli_query($link, $query) or die ('Query failed');
     $print = true;
