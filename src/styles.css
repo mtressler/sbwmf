@@ -276,3 +276,11 @@ a {
 .mR2 {
     margin-right: .2em;
 }
+
+#login {
+    margin-left: 1.3em;
+}
+
+#loginBtn {
+    padding: 0;
+}
