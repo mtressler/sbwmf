@@ -243,32 +243,15 @@ function addToSpotify(uri, queueId) {
 
     console.log(endpoint);
 
-    if (role == 'owner') {
 
-        console.log("owner part");
+    console.log("owner part");
 
-        api_call(endpoint, type = "POST").then((res) => {
-            console.log(res);
+    api_call(endpoint, type = "POST").then((res) => {
+        console.log(res);
 
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-    else {
-
-        console.log("non owner part");
-
-        accessObj['uri'] = endpoint;
-        $.ajax({
-            type: 'POST',
-            url: 'addToHiddenQueue.php',
-            data: { 'data': JSON.stringify(accessObj) },
-            success: function (result) {
-                role = result;
-            },
-            error: function (err) { console.log("ERROR"); }
-        });
-    }
+    }).catch((err) => {
+        console.log(err);
+    });
 
     removeFromQueue(uri, queueId);
 }
