@@ -59,6 +59,6 @@
         <script>$(function(){$("#footer-placeholder").load("footer.html");});</script>
         
         <script src="scripts.js"></script>
-        <script src="queueScripts.js"></script>
+        <script src="megasmokeScripts.js"></script>
     </body>
 </html>
