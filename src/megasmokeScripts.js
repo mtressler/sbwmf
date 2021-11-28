@@ -234,6 +234,8 @@ function addToSpotify(uri, queueId) {
         error: function (err) { console.log("ERROR"); }
     });
 
+    console.log(role);
+
 
     var endpoint = 'https://api.spotify.com/v1/playlists/5P6FpFhMy7gFvYwaX1ABCj/tracks?uris=' + uri;
 
