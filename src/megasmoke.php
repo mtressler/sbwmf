@@ -20,6 +20,9 @@
                 <!-- navbar -->
                 <div id="navbar-placeholder"></div>
                 <script>$(function(){$("#navbar-placeholder").load("navbar.html");});</script>
+                <a href='https://accounts.spotify.com/authorize?client_id=48b841ef44774ded93e4a2e1bffa9819&redirect_uri=http://www.sbwmf.com/&scope=user-read-private%20user-read-email%20user-library-read%20playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20playlist-modify-private%20user-modify-playback-state%20user-read-playback-state%20user-read-currently-playing&response_type=token'>
+                    <button type="button" class="btn">Login</button>
+                </a>
 
                 <div id="songQueueSearch"></div>
                 <div id="songQueueResults"></div>
