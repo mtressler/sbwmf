@@ -4,6 +4,9 @@ var uid;
 
 $(document).ready(function () {
     displayQueue(15);
+    api_call('https://api.spotify.com/v1/me').then((res) => {
+        uid = res['id'];
+    });
 })
 
 function displayQueue(queue_id) {
