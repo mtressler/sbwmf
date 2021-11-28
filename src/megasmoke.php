@@ -32,8 +32,6 @@
 
             </div>
         </div>
-        <div id="footer-placeholder"></div>
-        <script>$(function(){$("#footer-placeholder").load("footer.html");});</script>
         
         <script src="scripts.js"></script>
         <script src="megasmokeScripts.js"></script>
