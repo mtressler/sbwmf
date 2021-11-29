@@ -7,22 +7,30 @@ $(document).ready(function () {
     api_call('https://api.spotify.com/v1/me').then((res) => {
         uid = res['id'];
         document.getElementById("login").innerHTML = "Logged In";
+
+        var accessObj = new Object();
+        accessObj['userId'] = res['id'];
+        accessObj['queueId'] = 15;
+        accessObj['role'] = "user";
+
+        $.ajax({
+            type: 'POST',
+            url: 'getRole.php',
+            data: { 'data': JSON.stringify(accessObj) },
+            success: function (result) {
+                if (result == null) {
+                    joinQueue(15);
+                }
+                console.log(result);
+            },
+            error: function (err) { console.log("ERROR"); }
+        });
+
     }).catch((err) => {
         document.getElementById("login").innerHTML = err;
     });
 
-    $.ajax({
-        type: 'POST',
-        url: 'getRole.php',
-        data: { 'data': JSON.stringify(accessObj) },
-        success: function (result) {
-            if (result == null) {
-                joinQueue(15);
-            }
-            console.log(result);
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
+
 })
 
 function displayQueue(queue_id) {
