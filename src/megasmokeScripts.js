@@ -19,6 +19,7 @@ $(document).ready(function () {
             data: { 'data': JSON.stringify(accessObj) },
             success: function (result) {
                 if (result == null) {
+                    console.log("Joining Queue");
                     joinQueue(15);
                 }
                 console.log(result);
