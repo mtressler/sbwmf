@@ -21,7 +21,7 @@ $(document).ready(function () {
             data: { 'data': JSON.stringify(accessObj) },
             success: function (result) {
                 role = result;
-                console.log(role);
+                console.log(role[0]);
                 console.log(role == "owner");
                 if (!result) {
                     console.log("Joining Queue");
