@@ -10,6 +10,19 @@ $(document).ready(function () {
     }).catch((err) => {
         document.getElementById("login").innerHTML = err;
     });
+
+    $.ajax({
+        type: 'POST',
+        url: 'getRole.php',
+        data: { 'data': JSON.stringify(accessObj) },
+        success: function (result) {
+            if (result == null) {
+                joinQueue(15);
+            }
+            console.log(result);
+        },
+        error: function (err) { console.log("ERROR"); }
+    });
 })
 
 function displayQueue(queue_id) {
@@ -278,163 +291,28 @@ function removeFromQueue(uri, queueId) {
     });
 }
 
-function getUserList(queueId, userId) {
+function joinQueue(queue_id) {
+    console.log(queue_id);
 
-    $.ajax({
-        type: 'POST',
-        url: 'getUserList.php',
-        data: { 'data': JSON.stringify({ queueId, userId }) },
-        success: function (result) {
-            document.getElementById("queueResult").innerHTML = result;
-            $(`#manageUsers`).html(`<button class="btn" type="button" onclick="displayQueue(${queueId})">Back to Queue</button>`);
+    api_call('https://api.spotify.com/v1/me').then((res) => {
 
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
-}
+        var accessObj = new Object();
+        accessObj['userId'] = res['id'];
+        accessObj['queueId'] = queue_id;
+        accessObj['role'] = "user";
 
-function demoteUser(userId, queueId) {
-
-    var accessObj = new Object();
-    accessObj['userId'] = userId;
-    accessObj['queueId'] = queueId;
-    accessObj['role'] = "user";
-
-    $.ajax({
-        type: 'POST',
-        url: 'updateAccess.php',
-        data: { 'data': JSON.stringify(accessObj) },
-        success: function (result) {
-            console.log("SUCCESS");
-            getUserList(queueId, uid);
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
-}
-
-function promoteAdmin(userId, queueId) {
-
-    var accessObj = new Object();
-    accessObj['userId'] = userId;
-    accessObj['queueId'] = queueId;
-    accessObj['role'] = "admin";
-
-    $.ajax({
-        type: 'POST',
-        url: 'updateAccess.php',
-        data: { 'data': JSON.stringify(accessObj) },
-        success: function (result) {
-            console.log("SUCCESS");
-            getUserList(queueId, uid);
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
-}
-
-function giveOwnership(newOwner, oldOwner, queueId) {
-
-    var accessObj = new Object();
-    accessObj['userId'] = newOwner;
-    accessObj['queueId'] = queueId;
-    accessObj['role'] = "owner";
-
-    $.ajax({
-        type: 'POST',
-        url: 'updateAccess.php',
-        data: { 'data': JSON.stringify(accessObj) },
-        success: function (result) {
-            console.log("SUCCESS");
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
-
-    accessObj['userId'] = oldOwner;
-    accessObj['queueId'] = queueId;
-    accessObj['role'] = "admin";
-
-    $.ajax({
-        type: 'POST',
-        url: 'updateAccess.php',
-        data: { 'data': JSON.stringify(accessObj) },
-        success: function (result) {
-            console.log("SUCCESS");
-            getUserList(queueId, uid);
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
-}
-
-function addHiddenSongs(queue_id) {
-
-    var songs;
-    var queueObj = new Object();
-    queueObj['queueId'] = queue_id;
-
-    $.ajax({
-        type: 'POST',
-        url: 'getHiddenQueue.php',
-        data: { 'data': JSON.stringify(queueObj) },
-        success: function (result) {
-            songs = result.split("\n");
-            for (var i = 0; i < songs.length; i++) {
-                songs[i] = songs[i].substring(12, 95);
-            }
-            console.log(songs);
-
-            for (var i = 0; i < songs.length; i++) {
-                if (songs[i].length > 0) {
-                    api_call(songs[i], type = "POST").then((res) => {
-                        console.log(res);
-
-                    }).catch((err) => {
-                        console.log(err);
-                    });
-                }
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: 'deleteFromHiddenQueue.php',
-                data: { 'data': JSON.stringify(queueObj) },
-                success: function (result) {
-                    console.log("Queue Cleared");
-                },
-                error: function (err) { console.log("ERROR"); }
-            });
-
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
-
-
-}
-
-function deleteQueue(queueId) {
-
-    $.ajax({
-        type: 'POST',
-        url: 'deleteQueue.php',
-        data: { 'data': JSON.stringify(queueId) },
-        success: function (result) {
-            console.log(result);
-            getUserQueues();
-        },
-        error: function (err) { console.log("ERROR"); }
-    });
-}
-
-function leaveQueue(queueId, userId) {
-
-
-
-    $.ajax({
-        type: 'POST',
-        url: 'deleteQueue.php',
-        data: { 'data': JSON.stringify(queueId) },
-        success: function (result) {
-            console.log(result);
-            getUserQueues();
-        },
-        error: function (err) { console.log("ERROR"); }
+        $.ajax({
+            type: 'POST',
+            url: 'addAccess.php',
+            data: { 'data': JSON.stringify(accessObj) },
+            success: function (result) {
+                console.log(result);
+                console.log("SUCCESS");
+                displayQueue(queue_id);
+            },
+            error: function (err) { console.log("ERROR"); }
+        });
+    }).catch((err) => {
+        console.log(err);
     });
 }
