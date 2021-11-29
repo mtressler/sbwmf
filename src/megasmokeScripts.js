@@ -18,7 +18,7 @@ $(document).ready(function () {
             url: 'getRole.php',
             data: { 'data': JSON.stringify(accessObj) },
             success: function (result) {
-                if (result == null) {
+                if (!result) {
                     console.log("Joining Queue");
                     joinQueue(15);
                 }
