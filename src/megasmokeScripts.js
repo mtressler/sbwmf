@@ -13,12 +13,16 @@ $(document).ready(function () {
         accessObj['queueId'] = 15;
         accessObj['role'] = "user";
 
+        var role;
+
         $.ajax({
             type: 'POST',
             url: 'getRole.php',
             data: { 'data': JSON.stringify(accessObj) },
             success: function (result) {
-                console.log(result == "owner");
+                role = result;
+                console.log(role);
+                console.log(role == "owner");
                 if (!result) {
                     console.log("Joining Queue");
                     joinQueue(15);
