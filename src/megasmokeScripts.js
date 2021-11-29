@@ -18,12 +18,12 @@ $(document).ready(function () {
             url: 'getRole.php',
             data: { 'data': JSON.stringify(accessObj) },
             success: function (result) {
+                console.log(result == "owner");
                 if (!result) {
                     console.log("Joining Queue");
                     joinQueue(15);
                 }
                 else {
-                    console.log(!result);
                     console.log("not joining queue");
                 }
                 console.log(result);
