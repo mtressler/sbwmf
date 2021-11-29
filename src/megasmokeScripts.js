@@ -22,6 +22,10 @@ $(document).ready(function () {
                     console.log("Joining Queue");
                     joinQueue(15);
                 }
+                else {
+                    console.log(!result);
+                    console.log("not joining queue");
+                }
                 console.log(result);
             },
             error: function (err) { console.log("ERROR"); }
