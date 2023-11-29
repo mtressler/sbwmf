@@ -95,26 +95,26 @@ function saveProfile() {
     saveUser();
     //loadUserAlbums();
     //saveAlbums();
-    //saveSongs();
+    saveSongs();
     //savePlaylists();
 }
 
 function saveUser() {
     var user = {
-        'User_id': '',
+        'user_id': '',
         'user_uri': ''
     }
     api_call('https://api.spotify.com/v1/me').then((res) => {
         var name = JSON.stringify(res['display_name']);
         name = name.substring(1, name.length - 1);
         document.getElementById("userInfo").innerHTML = "Welcome " + name + "!";
-        user['User_id'] = name;
+        user['user_id'] = name;
         user['user_uri'] = res['uri'];
         console.log(JSON.stringify(user));
         $.ajax({
             type: 'POST',
-            url: 'saveUser.php',
-            data: { 'data': JSON.stringify(user) },
+            url: 'saveUser',
+            data: JSON.stringify(user),
             success: function (result) {
                 console.log(result);
                 console.log("SUCCESS");
@@ -149,12 +149,20 @@ function saveSeveralSongs(uris, n, p, t, a) {
             ob['audio_features'][i]['popularity'] = parseInt(p.split('&')[i]);
             ob['audio_features'][i]['track_num'] = parseInt(t.split('&')[i]);
             ob['audio_features'][i]['artists'] = a.split('&%&')[i];
+            ob['audio_features'][i]['s_key'] = ob['audio_features'][i]['key']
+            delete ob['audio_features'][i]['type']
+            delete ob['audio_features'][i]['id']
+            delete ob['audio_features'][i]['track_href']
+            delete ob['audio_features'][i]['analysis_url']
+            delete ob['audio_features'][i]['mode']
+            delete ob['audio_features'][i]['key']
         }
-        //console.log(ob);
+        ob = ob['audio_features']
+        console.log(ob);
         $.ajax({
             type: 'POST',
-            url: 'saveSongs.php',
-            data: { 'data': JSON.stringify(ob) },
+            url: 'saveSongs',
+            data: JSON.stringify(ob),
             success: function (result) {
                 //console.log(result); 
                 //console.log("SUCCESS");

@@ -30,10 +30,10 @@ function libQuery(div, headers, table, filters=null, order=null, limit=null) {
             first = false;
         else
             query += ", ";
-        if (h == "Duration")
+        if (h == "duration_ms")
             query += "round(";
         query += h;
-        if (h == "Duration")
+        if (h == "duration_ms")
             query += " / 1000, 2)";
         if (h in translations) {
             query += " as \"";
@@ -101,10 +101,11 @@ function libQuery(div, headers, table, filters=null, order=null, limit=null) {
 
     $.ajax({
         type: 'POST',
-        url: 'libQuery.php',
-        data: data,
+        url: 'libQuery',
+        data: JSON.stringify(data),
         success: function (result) {
-            if (table == "Songs") {
+            console.log(result)
+            if (table == "songs") {
                 if (div == "SAVE SONGS") {
                     song_query_results = result.split('#%&#%&');
                     song_query_results.pop();
@@ -112,7 +113,7 @@ function libQuery(div, headers, table, filters=null, order=null, limit=null) {
                     console.log(song_query_results);
                 } else {
                     document.getElementById(div).innerHTML = result;
-                    libQuery("SAVE SONGS", ["Song_uri"], table, filters, order, limit);
+                    libQuery("SAVE SONGS", ["uri"], table, filters, order, limit);
                 }
             } else {
                 document.getElementById("save-playlist").style.display = "none";
@@ -1048,7 +1049,7 @@ $('#search-button').on('click', function() {
     if (document.getElementById('checkbox-popularity').checked)
         includedHeaders.push('Popularity');
     if (document.getElementById('checkbox-artist').checked)
-        includedHeaders.push('Artist');
+        includedHeaders.push('Artists');
     if (document.getElementById('checkbox-release-date').checked)
         includedHeaders.push('release_date');
     if (document.getElementById('checkbox-image').checked)
@@ -1066,9 +1067,9 @@ $('#search-button').on('click', function() {
     if (document.getElementById('checkbox-track-num').checked)
         includedHeaders.push('Track_num');
     if (document.getElementById('checkbox-duration').checked)
-        includedHeaders.push('Duration');
+        includedHeaders.push('duration_ms');
     if (document.getElementById('checkbox-key').checked)
-        includedHeaders.push('S_Key');
+        includedHeaders.push('s_key');
     if (document.getElementById('checkbox-energy').checked)
         includedHeaders.push('Energy');
     if (document.getElementById('checkbox-liveness').checked)
@@ -1098,9 +1099,9 @@ $('#search-button').on('click', function() {
         //durationSlider
         let dur = durationSlider.noUiSlider.get();
         if (dur[0] > 0)
-            filters.push(['Duration', '>', dur[0]]);
+            filters.push(['duration_ms', '>', dur[0]]);
         if (dur[1] < 3600000)
-            filters.push(['Duration', '<', dur[1]]);
+            filters.push(['duration_ms', '<', dur[1]]);
         //popularitySlider
         let pop = popularitySlider.noUiSlider.get();
         if (pop[0] > 0)
@@ -1116,9 +1117,9 @@ $('#search-button').on('click', function() {
         //keySlider
         let key = keySlider.noUiSlider.get();
         if (key[0] > 0)
-            filters.push(['S_Key', '>', key[0]]);
+            filters.push(['s_key', '>', key[0]]);
         if (key[1] < 11)
-            filters.push(['S_Key', '<', key[1]]);
+            filters.push(['s_key', '<', key[1]]);
         //valenceSlider
         let val = valenceSlider.noUiSlider.get();
         if (val[0] > 0)
@@ -1188,7 +1189,7 @@ $('#search-button').on('click', function() {
         if (o5 != '-')
             order.push([o5, o6]);
 
-        libQuery("table-output", includedHeaders, 'Songs', filters, order, Math.round(limitSlider.noUiSlider.get()));
+        libQuery("table-output", includedHeaders, 'songs', filters, order, Math.round(limitSlider.noUiSlider.get()));
     } else if (document.getElementById('albumRadio').checked) {
         var filters = [];
         //nameSlider
